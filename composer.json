@@ -1,0 +1,23 @@
+{
+    "name": "mre/beacon",
+    "description": "A simple client-side metrics receiver. Works with boomerang",
+    "keywords": ["php", "boomerang", "frontend", "performance"],
+    "authors": [
+        {
+            "name": "Matthias Endler",
+            "email": "matthias.endler@gmx.net"
+        }
+    ],
+    "license": "MIT",
+    "type": "project",
+    "autoload": {
+	"psr-0": {
+	    "mre": "src/"
+	}
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "domnikl/statsd": "*"
+    }
+}
+
