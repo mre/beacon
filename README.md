@@ -1,5 +1,7 @@
 # beacon
 
+*Work in progress*  
+
 A stupidly simple beacon catcher for boomerang.  
 
 1. Run `composer install`
