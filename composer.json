@@ -1,24 +1,35 @@
 {
-    "name": "mre/beacon",
-    "description": "A simple client-side metrics receiver. Works with boomerang",
-    "keywords": ["php", "boomerang", "frontend", "performance"],
-    "authors": [
-        {
-            "name": "Matthias Endler",
-            "email": "matthias.endler@gmx.net"
-        }
-    ],
-    "license": "MIT",
-    "type": "project",
-    "autoload": {
-	"psr-0": {
-	    "mre": "src/"
-	}
-    },
-    "require": {
-        "php": ">=5.4.0",
-        "noodlehaus/config": "*@dev",
-        "domnikl/statsd": "*"
+  "name": "mre/beacon",
+  "description": "A simple client-side metrics receiver. Works with boomerang",
+  "keywords": [
+    "php",
+    "boomerang",
+    "frontend",
+    "performance"
+  ],
+  "authors": [
+    {
+      "name": "Matthias Endler",
+      "email": "matthias.endler@gmx.net"
     }
+  ],
+  "license": "MIT",
+  "type": "project",
+  "autoload": {
+    "psr-0": {
+      "mre": "src/"
+    }
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "require": {
+    "php": ">=5.4.0",
+    "noodlehaus/config": "*@dev",
+    "domnikl/statsd": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.5.*"
+  }
 }
 
