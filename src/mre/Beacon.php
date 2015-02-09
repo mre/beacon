@@ -47,7 +47,7 @@ class Beacon
      */
     public function sendMetrics()
     {
-        foreach ($this->oReader->read($_GET) as $_oMetric)
+        foreach ($this->oReader->read(filter_input_array(INPUT_GET)) as $_oMetric)
         {
             $this->oStatsd->send($_oMetric->getKey(), $_oMetric->getValue(), $this->_oMetric->getType(), 1);
         }
