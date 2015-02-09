@@ -5,6 +5,11 @@ namespace mre;
 
 class Validator
 {
+    /* Define how valid metrics look like */
+    const REGEX_KEY = '[a-zA-Z]+(?:[._][a-zA-Z]+)*';
+    const REGEX_VALUE = '(-?\d*\.?\d+)';
+    const REGEX_TYPE = '([a-z]+)';
+
     /**
      * Validate a statsd key-value pair
      *
@@ -46,7 +51,7 @@ class Validator
      */
     public function splitValueAndType($sPoint)
     {
-        preg_match('/^(-?\d*\.?\d+)([a-z]+)$/', $sPoint, $_aMatches);
+        preg_match('/^' . self::REGEX_VALUE . self::REGEX_TYPE . '$/', $sPoint, $_aMatches);
         return $_aMatches;
     }
 
@@ -60,7 +65,7 @@ class Validator
      */
     public function isValidKey($sKey)
     {
-        return !empty($sKey) && preg_match('/^[a-zA-Z]+(?:[._][a-zA-Z]+)*$/', $sKey) == 1;
+        return !empty($sKey) && preg_match('/^' . self::REGEX_KEY . '$/', $sKey) == 1;
     }
 
     /**
@@ -72,7 +77,7 @@ class Validator
      */
     public function isValidValue($sValue)
     {
-        return preg_match('/^(-?\d*\.?\d+)$/', $sValue) == 1;
+        return preg_match('/^' . self::REGEX_VALUE . '$/', $sValue) == 1;
     }
 
     /**
