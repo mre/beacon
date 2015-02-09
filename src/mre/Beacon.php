@@ -22,7 +22,7 @@ class Beacon
     public function __construct($sConfigFile)
     {
         $this->oConfig = Config::load($sConfigFile);
-        $this->oReader = new Reader();
+        $this->oReader = new StatsReader();
 
         $this->initStatsd();
     }
@@ -49,21 +49,7 @@ class Beacon
     {
         foreach ($this->oReader->read($_GET) as $_oMetric)
         {
-            switch ($_oMetric->getType())
-            {
-                case Metric::TYPE_COUNTER:
-                    $this->oStatsd->count($_oMetric->getKey(), $_oMetric->getValue());
-                    break;
-                case Metric::TYPE_TIMING:
-                    $this->oStatsd->timing($_oMetric->getKey(), $_oMetric->getValue());
-                    break;
-                case Metric::TYPE_SET:
-                    $this->oStatsd->set($_oMetric->getKey(), $_oMetric->getValue());
-                    break;
-                case Metric::TYPE_GAUGE:
-                    $this->oStatsd->gauge($_oMetric->getKey(), $_oMetric->getValue());
-                    break;
-            }
+            $this->oStatsd->send($_oMetric->getKey(), $_oMetric->getValue(), $this->_oMetric->getType(), 1);
         }
     }
 }
