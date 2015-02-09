@@ -49,7 +49,21 @@ class Beacon
     {
         foreach ($this->oReader->read(filter_input_array(INPUT_GET)) as $_oMetric)
         {
-            $this->oStatsd->send($_oMetric->getKey(), $_oMetric->getValue(), $this->_oMetric->getType(), 1);
+            switch ($_oMetric->getType())
+            {
+                case Metric::TYPE_COUNTER:
+                    $this->oStatsd->count($_oMetric->getKey(), $_oMetric->getValue());
+                    break;
+                case Metric::TYPE_TIMING:
+                    $this->oStatsd->timing($_oMetric->getKey(), $_oMetric->getValue());
+                    break;
+                case Metric::TYPE_SET:
+                    $this->oStatsd->set($_oMetric->getKey(), $_oMetric->getValue());
+                    break;
+                case Metric::TYPE_GAUGE:
+                    $this->oStatsd->gauge($_oMetric->getKey(), $_oMetric->getValue());
+                    break;
+            }
         }
     }
 }
