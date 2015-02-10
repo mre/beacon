@@ -17,7 +17,6 @@ class Beacon
      * from a client and sending them with statsd.
      *
      * @param $sConfigFile
-     * @param bool $analyze
      */
     public function __construct($sConfigFile)
     {

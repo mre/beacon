@@ -10,6 +10,8 @@ namespace mre\beacon;
  */
 class StatsReader
 {
+    private $oValidator;
+
     public function __construct()
     {
         $this->oValidator = new Validator();
