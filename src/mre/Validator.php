@@ -35,7 +35,7 @@ class Validator
 
         if (count($_aValueAndType) != 3)
         {
-            return False;
+            return false;
         }
 
         $_iValue = $_aValueAndType[1];
@@ -90,7 +90,7 @@ class Validator
     {
         if (!$sType)
         {
-            return False;
+            return false;
         }
 
         switch ($sType)
@@ -99,9 +99,9 @@ class Validator
             case Metric::TYPE_GAUGE:
             case Metric::TYPE_SET:
             case Metric::TYPE_TIMING:
-                return True;
+                return true;
         }
         // Invalid type
-        return False;
+        return false;
     }
 }

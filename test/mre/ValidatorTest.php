@@ -49,72 +49,72 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
     public function keyProvider()
     {
         return [
-            ['foo', True],
-            ['FOO', True],
-            ['FOO_BAR', True],
-            ['FOO.BAR', True],
-            ['FOO.bar', True],
-            ['foo.BAR', True],
-            ['test.test.test', True],
-            ['test.test_test', True],
-            ['test_test', True],
-            ['test_test_test', True],
-            [null, False],
-            ['', False],
-            ['123', False],
-            [123, False],
-            ['FOO:BAR', False],
-            ['..', False],
-            ['ಠ_ಠ', False],
-            ['.test', False],
-            ['.test1', False],
-            ['test.test.', False],
-            ['test..test.', False],
-            ['test.test..test..test', False],
-            ['.test.test', False],
-            ['test.test_', False]
+            ['foo', true],
+            ['FOO', true],
+            ['FOO_BAR', true],
+            ['FOO.BAR', true],
+            ['FOO.bar', true],
+            ['foo.BAR', true],
+            ['test.test.test', true],
+            ['test.test_test', true],
+            ['test_test', true],
+            ['test_test_test', true],
+            [null, false],
+            ['', false],
+            ['123', false],
+            [123, false],
+            ['FOO:BAR', false],
+            ['..', false],
+            ['ಠ_ಠ', false],
+            ['.test', false],
+            ['.test1', false],
+            ['test.test.', false],
+            ['test..test.', false],
+            ['test.test..test..test', false],
+            ['.test.test', false],
+            ['test.test_', false]
         ];
     }
 
     public function typeProvider()
     {
         return [
-            ['c', True],
-            ['g', True],
-            ['ms', True],
-            ['s', True],
-            ['v', False],
-            ['bla', False]
+            ['c', true],
+            ['g', true],
+            ['ms', true],
+            ['s', true],
+            ['v', false],
+            ['bla', false]
         ];
     }
 
     public function valueProvider()
     {
         return [
-            [123, True],
-            [-123, True],
-            [1.0, True],
-            [-1.0, True],
-            ['123', True],
-            [null, False],
-            ['', False],
-            ['abc', False]
+            [123, true],
+            [-123, true],
+            [1.0, true],
+            [-1.0, true],
+            ['123', true],
+            [null, false],
+            ['', false],
+            ['abc', false]
         ];
     }
 
     public function MeasurementPointProvider()
     {
         return [
-            ['100ms', True],
-            ['1c', True],
-            ['-1c', True],
-            ['12g', True],
-            ['12s', True],
-            ['1.24g', True],
-            ['-1.24g', True],
-            ['c-1', False],
-            ['1cg', False],
-            ['1z', False]
+            ['100ms', true],
+            ['1c', true],
+            ['-1c', true],
+            ['12g', true],
+            ['12s', true],
+            ['1.24g', true],
+            ['-1.24g', true],
+            ['c-1', false],
+            ['1cg', false],
+            ['1z', false]
         ];
     }
 }
