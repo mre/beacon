@@ -29,20 +29,37 @@ class StatsReader
         {
             if ($this->oValidator->isValid($_sKey, $_sPoint))
             {
-                $_aValueAndType = $this->oValidator->splitValueAndType($_sPoint);
-
-                if (count($_aValueAndType) != 3)
+                $_oMetric = $this->createMetric($_sKey, $_sPoint);
+                if ($_oMetric)
                 {
-                    continue;
+                    $_aMetrics[] = $_oMetric;
                 }
-
-                $_iValue = $_aValueAndType[1];
-                $_sType = $_aValueAndType[2];
-
-                $_oMetric = new Metric($_sKey, $_iValue, $_sType);
-                $_aMetrics[] = $_oMetric;
             }
         }
         return $_aMetrics;
     }
+
+    /**
+     * Create a new metric point
+     *
+     * @param $_sKey string The metric key
+     * @param $_sPoint string The metric value with type
+     * @return Metric|null
+     */
+    private function createMetric($_sKey, $_sPoint)
+    {
+        $_aValueAndType = $this->oValidator->splitValueAndType($_sPoint);
+
+        if (count($_aValueAndType) != 3)
+        {
+            return null;
+        }
+
+        $_iValue = $_aValueAndType[1];
+        $_sType = $_aValueAndType[2];
+
+        return new Metric($_sKey, $_iValue, $_sType);
+    }
+
+
 }
