@@ -1,6 +1,6 @@
 <?php
 
-namespace mre;
+namespace mre\beacon;
 
 use Domnikl\Statsd\Connection\UdpSocket;
 use Noodlehaus\Config as Config;

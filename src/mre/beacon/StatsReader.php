@@ -1,6 +1,6 @@
 <?php
 
-namespace mre;
+namespace mre\beacon;
 
 /**
  * Class Reader

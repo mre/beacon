@@ -1,7 +1,6 @@
 <?php
 
-namespace mre;
-
+namespace mre\beacon;
 
 class Validator
 {

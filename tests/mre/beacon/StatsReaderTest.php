@@ -1,6 +1,6 @@
 <?php
 
-namespace mre;
+namespace mre\beacon;
 
 use PHPUnit_Framework_TestCase;
 
