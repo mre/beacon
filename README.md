@@ -1,4 +1,4 @@
-# beacon
+![beacon](beacon.png)
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mre/beacon/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mre/beacon/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/mre/beacon/badges/build.png?b=master)](https://scrutinizer-ci.com/g/mre/beacon/build-status/master)
