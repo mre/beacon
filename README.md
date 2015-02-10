@@ -60,3 +60,8 @@ For more info, see [the official statsd documentation](https://github.com/etsy/s
 
 Values are negative or positive int or float numbers.
 Examples: 123, -123, 1.0, -1.0
+
+
+### Credits
+
+Beacon logo created by [Ahmed Elzahra](https://www.behance.net/ahmedelzahra) from the Noun Project. Thanks!
