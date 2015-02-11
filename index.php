@@ -1,6 +1,6 @@
 <?php
 
-header('HTTP/1.0 204 No Content');
+header('HTTP/1.0 200 OK');
 
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')
 {
