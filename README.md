@@ -2,6 +2,7 @@
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mre/beacon/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mre/beacon/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/mre/beacon/badges/build.png?b=master)](https://scrutinizer-ci.com/g/mre/beacon/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/mre/beacon/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/mre/beacon/?branch=master)
 
 A dedicated endpoint for real user monitoring.  
 Works with [boomerang](https://github.com/lognormal/boomerang) and [statsc](https://github.com/godmodelabs/statsc).  
