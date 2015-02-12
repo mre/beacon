@@ -23,6 +23,13 @@ class StatsReader
      */
     public function read($aData)
     {
+        if (!$this->checkInput($aData))
+        {
+            // Invalid input data
+            // Can't extract metrics
+            return [];
+        }
+
         $_aMetrics = [];
 
         foreach ($aData as $_sKey => $_sPoint)
@@ -37,6 +44,22 @@ class StatsReader
             }
         }
         return $_aMetrics;
+    }
+
+    /**
+     * Input must be an associative array
+     *
+     * @param $aData
+     * @return bool
+     */
+    private function checkInput($aData)
+    {
+        if (!$aData)
+        {
+            // Invalid. Might be null
+            return false;
+        }
+        return (bool) count(array_filter(array_keys($aData), 'is_string'));
     }
 
     /**
