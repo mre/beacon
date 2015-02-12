@@ -20,7 +20,7 @@ class StatsReaderTest extends PHPUnit_Framework_TestCase
             'foo' => '123g',
             'bar' => '-1.9c',
             '123' => '100c',
-            'blub' => '1.33g',
+            'baz' => '1.33g',
             'zoo' => 123,
             'maa' => '32v'
         ];
@@ -37,7 +37,7 @@ class StatsReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('-1.9', $_aMetrics[1]->getValue());
         $this->assertEquals('c', $_aMetrics[1]->getType());
 
-        $this->assertEquals('blub', $_aMetrics[2]->getKey());
+        $this->assertEquals('foo', $_aMetrics[2]->getKey());
         $this->assertEquals('1.33', $_aMetrics[2]->getValue());
         $this->assertEquals('g', $_aMetrics[2]->getType());
     }
