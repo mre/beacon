@@ -25,7 +25,7 @@ class Validator
      * A valid measurement points consists of a
      * valid value and a valid type
      *
-     * @param $sKey string Key to check
+     * @param $sPoint string Point to check
      * @return bool Is valid key
      */
     public function isValidMeasurementPoint($sPoint)

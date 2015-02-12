@@ -9,6 +9,8 @@ use Domnikl\Statsd\Client as Statsd;
 class Beacon
 {
     private $oReader;
+
+    /* @var $oStats \Domnikl\Statsd\Client */
     private $oStatsd;
     private $oConfig;
 

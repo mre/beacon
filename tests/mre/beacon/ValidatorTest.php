@@ -7,6 +7,7 @@ use PHPUnit_Framework_TestCase;
 
 class ValidatorTest extends PHPUnit_Framework_TestCase
 {
+    /* @var $oValidator Validator */
     private $oValidator;
 
     protected function setUp()
@@ -16,6 +17,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider keyProvider
+     * @param $sKey
+     * @param $bExpected
      */
     public function testValidKey($sKey, $bExpected)
     {
@@ -24,6 +27,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider valueProvider
+     * @param $mValue
+     * @param $bExpected
      */
     public function testValidValue($mValue, $bExpected)
     {
@@ -32,6 +37,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider typeProvider
+     * @param $sType
+     * @param $bExpected
      */
     public function testValidType($sType, $bExpected)
     {
@@ -40,6 +47,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider MeasurementPointProvider
+     * @param $sPoint
+     * @param $bExpected
      */
     public function testValidValueWithType($sPoint, $bExpected)
     {
