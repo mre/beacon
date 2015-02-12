@@ -60,6 +60,4 @@ class StatsReader
 
         return new Metric($_sKey, $_iValue, $_sType);
     }
-
-
 }
