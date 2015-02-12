@@ -54,9 +54,9 @@ class StatsReader
      */
     private function checkInput($aData)
     {
-        if (!$aData)
+        if (!is_array($aData))
         {
-            // Invalid. Might be null
+            // Invalid. Might be null or string or something
             return false;
         }
         return (bool) count(array_filter(array_keys($aData), 'is_string'));

@@ -6,6 +6,7 @@ use PHPUnit_Framework_TestCase;
 
 class StatsReaderTest extends PHPUnit_Framework_TestCase
 {
+    /* @var $oReader StatsReader */
     private $oReader;
 
     protected function setUp()
@@ -24,6 +25,7 @@ class StatsReaderTest extends PHPUnit_Framework_TestCase
             'maa' => '32v'
         ];
 
+        /** @var Metric[] $_aMetrics */
         $_aMetrics = $this->oReader->read($_aRawData);
 
         $this->assertEquals(3, count($_aMetrics));
@@ -38,5 +40,20 @@ class StatsReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('blub', $_aMetrics[2]->getKey());
         $this->assertEquals('1.33', $_aMetrics[2]->getValue());
         $this->assertEquals('g', $_aMetrics[2]->getType());
+    }
+
+    public function testEmptyInputReturnsNoMetrics()
+    {
+        $this->assertEquals([], $this->oReader->read([]));
+    }
+
+    public function testNullInputReturnsNoMetrics()
+    {
+        $this->assertEquals([], $this->oReader->read(null));
+    }
+
+    public function testInvalidInputReturnsNoMetrics()
+    {
+        $this->assertEquals([], $this->oReader->read('bla'));
     }
 }
