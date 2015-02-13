@@ -1,6 +1,6 @@
 <?php
 
-namespace mre\beacon;
+namespace mre\Beacon;
 
 class Validator
 {
@@ -87,6 +87,6 @@ class Validator
      */
     public function isValidType($sType)
     {
-        return in_array($sType, Metric::$VALID_TYPES, True);
+        return in_array($sType, Metric::$VALID_TYPES, true);
     }
 }

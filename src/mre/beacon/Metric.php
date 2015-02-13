@@ -1,6 +1,6 @@
 <?php
 
-namespace mre\beacon;
+namespace mre\Beacon;
 
 /**
  * Class Metric

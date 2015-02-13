@@ -1,31 +1,44 @@
 <?php
 
-namespace mre\beacon;
+namespace mre\Beacon;
 
 use Domnikl\Statsd\Connection\UdpSocket;
-use Noodlehaus\Config as Config;
 use Domnikl\Statsd\Client as Statsd;
 
 class Beacon
 {
+    private $aConfig;
     private $oReader;
-
-    /* @var $oStats \Domnikl\Statsd\Client */
-    private $oStatsd;
-    private $oConfig;
 
     /**
      * Create  a new beacon instance responsible for retrieving metrics
      * from a client and sending them with statsd.
      *
-     * @param $sConfigFile
+     * @param array $aConfig Config settings
      */
-    public function __construct($sConfigFile)
+    public function __construct(array $aConfig)
     {
-        $this->oConfig = Config::load($sConfigFile);
-        $this->oReader = new StatsReader();
+        $this->aConfig = $aConfig;
+        $this->oReader = new MetricReader();
 
-        $this->initStatsd();
+        $_oStatsdClient = $this->initStatsd();
+        $this->oSender = new MetricSender($_oStatsdClient);
+    }
+
+    /**
+     * @return array Current config
+     */
+    public function getConfig()
+    {
+        return $this->aConfig;
+    }
+
+    /**
+     * @param array $aConfig New config
+     */
+    public function setConfig($aConfig)
+    {
+        $this->aConfig = $aConfig;
     }
 
     /**
@@ -34,37 +47,21 @@ class Beacon
     private function initStatsd()
     {
         $_oConnection = new UdpSocket(
-            $this->oConfig->get('statsd')['host'],
-            $this->oConfig->get('statsd')['port'],
-            $this->oConfig->get('statsd')['timeout'],
+            $this->aConfig['statsd']['host'],
+            $this->aConfig['statsd']['port'],
+            $this->aConfig['statsd']['timeout'],
             false // no persistent connection
         );
-        $_sNamespace = $this->oConfig->get('statsd')['namespace'];
-        $this->oStatsd = new Statsd($_oConnection, $_sNamespace);
+        $_sNamespace = $this->aConfig['statsd']['namespace'];
+        return new Statsd($_oConnection, $_sNamespace);
     }
 
     /**
-     * Get metrics from client
+     * Get and send metrics from client
      */
-    public function sendMetrics()
+    public function run()
     {
-        foreach ($this->oReader->read(filter_input_array(INPUT_GET)) as $_oMetric)
-        {
-            switch ($_oMetric->getType())
-            {
-                case Metric::TYPE_COUNTER:
-                    $this->oStatsd->count($_oMetric->getKey(), $_oMetric->getValue());
-                    break;
-                case Metric::TYPE_TIMING:
-                    $this->oStatsd->timing($_oMetric->getKey(), $_oMetric->getValue());
-                    break;
-                case Metric::TYPE_SET:
-                    $this->oStatsd->set($_oMetric->getKey(), $_oMetric->getValue());
-                    break;
-                case Metric::TYPE_GAUGE:
-                    $this->oStatsd->gauge($_oMetric->getKey(), $_oMetric->getValue());
-                    break;
-            }
-        }
+        $_aMetrics = $this->oReader->read(filter_input_array(INPUT_GET));
+        $this->oSender->send($_aMetrics);
     }
 }

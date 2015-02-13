@@ -1,6 +1,6 @@
 <?php
 
-namespace mre\beacon;
+namespace mre\Beacon;
 
 /**
  * Class Reader
@@ -8,7 +8,7 @@ namespace mre\beacon;
  *
  * Reads metrics from a GET URL
  */
-class StatsReader
+class MetricReader
 {
     private $oValidator;
 
@@ -19,7 +19,7 @@ class StatsReader
 
     /**
      * @param $aData
-     * @return \Generator
+     * @return array
      */
     public function read($aData)
     {

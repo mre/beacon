@@ -9,5 +9,6 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || !strtolower($_SERVER['HTTP_X_RE
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$beacon = new mre\beacon\Beacon('config.php');
-$beacon->sendMetrics();
+$_aConfig = \mre\Beacon\ConfigLoader::load('config.php');
+$_oBeacon = new mre\Beacon\Beacon($_aConfig);
+$_oBeacon->run();

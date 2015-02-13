@@ -1,17 +1,17 @@
 <?php
 
-namespace mre\beacon;
+namespace mre\Beacon;
 
 use PHPUnit_Framework_TestCase;
 
-class StatsReaderTest extends PHPUnit_Framework_TestCase
+class MetricReaderTest extends PHPUnit_Framework_TestCase
 {
-    /* @var $oReader StatsReader */
+    /* @var $oReader MetricReader */
     private $oReader;
 
     protected function setUp()
     {
-        $this->oReader = new StatsReader();
+        $this->oReader = new MetricReader();
     }
 
     public function testReaderReturnsAllCorrectMetrics()
@@ -62,7 +62,5 @@ class StatsReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $this->oReader->read(['foo' => '123']));
         $this->assertEquals([], $this->oReader->read(['foo' => 'c']));
         $this->assertEquals([], $this->oReader->read(['foo' => null]));
-
-
     }
 }
