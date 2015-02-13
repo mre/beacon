@@ -5,8 +5,6 @@ namespace mre\Beacon;
 class ConfigLoaderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers mre\Beacon\Config::load
-     * @covers mre\Beacon\Config::loadPhp
      * @expectedException \mre\Beacon\Exception\UnsupportedFormatException
      * @expectedExceptionMessage PHP file does not return an array
      */
@@ -16,8 +14,6 @@ class ConfigLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers mre\Beacon\Config::load
-     * @covers mre\Beacon\Config::loadPhp
      * @expectedException \mre\Beacon\Exception\ParseException
      * @expectedExceptionMessage PHP file threw an exception
      */
@@ -27,7 +23,6 @@ class ConfigLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers mre\Beacon\Config::__construct
      * @expectedException \mre\Beacon\Exception\UnsupportedFormatException
      */
     public function testLoadWithUnsupportedFormat()
@@ -36,31 +31,22 @@ class ConfigLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers mre\Beacon\Config::__construct
      * @expectedException \mre\Beacon\Exception\FileNotFoundException
      * @expectedExceptionMessage Configuration file: [ladadeedee] cannot be found
      */
-    public function testConstructWithInvalidPath()
+    public function testInvalidPath()
     {
         ConfigLoader::load('ladadeedee');
     }
 
-    /**
-     * @covers mre\Beacon\Config::__construct
-     * @covers mre\Beacon\Config::loadPhp
-     */
-    public function testConstructWithPhpArray()
+    public function testLoadPhpArray()
     {
         $_aConfig = ConfigLoader::load(__DIR__ . '/mocks/pass/config.php');
         $this->assertEquals('localhost', $_aConfig['host']);
         $this->assertEquals('80', $_aConfig['port']);
     }
 
-    /**
-     * @covers mre\Beacon\Config::__construct
-     * @covers mre\Beacon\Config::loadPhp
-     */
-    public function testConstructWithPhpCallable()
+    public function testLoadPhpCallable()
     {
         $_aConfig = ConfigLoader::load(__DIR__ . '/mocks/pass/config-exec.php');
         $this->assertEquals('localhost', $_aConfig['host']);
