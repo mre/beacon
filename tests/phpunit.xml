@@ -12,7 +12,7 @@
         >
     <testsuites>
         <testsuite name="Beacon Test Suite">
-            <directory suffix="Test.php">./mre/beacon/</directory>
+            <directory suffix="Test.php">./mre/Beacon/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
