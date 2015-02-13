@@ -93,7 +93,11 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ['ms', true],
             ['s', true],
             ['v', false],
-            ['bla', false]
+            ['bla', false],
+            ['', false],
+            [null, false],
+            [-1, false],
+            [1.0, false]
         ];
     }
 
