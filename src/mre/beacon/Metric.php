@@ -15,6 +15,13 @@ class Metric
     const TYPE_GAUGE    = 'g';
     const TYPE_SET      = 's';
 
+    public static $VALID_TYPES = [
+        self::TYPE_COUNTER,
+        self::TYPE_TIMING,
+        self::TYPE_GAUGE,
+        self::TYPE_SET
+    ];
+
     public $sKey;
     public $iValue;
     public $sType;

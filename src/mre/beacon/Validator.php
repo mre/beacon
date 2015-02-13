@@ -87,20 +87,6 @@ class Validator
      */
     public function isValidType($sType)
     {
-        if (!$sType)
-        {
-            return false;
-        }
-
-        switch ($sType)
-        {
-            case Metric::TYPE_COUNTER:
-            case Metric::TYPE_GAUGE:
-            case Metric::TYPE_SET:
-            case Metric::TYPE_TIMING:
-                return true;
-        }
-        // Invalid type
-        return false;
+        return in_array($sType, Metric::$VALID_TYPES, True);
     }
 }
