@@ -31,4 +31,3 @@ return [
         'page_id'
     ]
 ];
-
