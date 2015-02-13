@@ -17,4 +17,3 @@ class ParseException extends \ErrorException
         parent::__construct($_sMessage, $_iCode, $_iSeverity, $_sFilename, $_iLineNo, $_oException);
     }
 }
-
