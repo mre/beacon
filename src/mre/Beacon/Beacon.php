@@ -9,6 +9,7 @@ class Beacon
 {
     private $aConfig;
     private $oReader;
+    private $oSender;
 
     /**
      * Create  a new beacon instance responsible for retrieving metrics
