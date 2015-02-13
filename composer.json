@@ -16,8 +16,8 @@
   "license": "MIT",
   "type": "project",
   "autoload": {
-    "psr-0": {
-      "mre": "src/"
+    "psr-4": {
+      "mre\\": "src/mre"
     }
   },
   "config": {
