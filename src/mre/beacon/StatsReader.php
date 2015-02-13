@@ -29,21 +29,7 @@ class StatsReader
             // Can't extract metrics
             return [];
         }
-
-        $_aMetrics = [];
-
-        foreach ($aData as $_sKey => $_sPoint)
-        {
-            if ($this->oValidator->isValid($_sKey, $_sPoint))
-            {
-                $_oMetric = $this->createMetric($_sKey, $_sPoint);
-                if ($_oMetric)
-                {
-                    $_aMetrics[] = $_oMetric;
-                }
-            }
-        }
-        return $_aMetrics;
+        return $this->extract($aData);
     }
 
     /**
@@ -82,5 +68,29 @@ class StatsReader
         $_sType = $_aValueAndType[2];
 
         return new Metric($_sKey, $_iValue, $_sType);
+    }
+
+    /**
+     * Return all valid metrics in the data array
+     *
+     * @param array $aData Data array
+     * @return array valid metrics
+     */
+    private function extract($aData)
+    {
+        $_aMetrics = [];
+
+        foreach ($aData as $_sKey => $_sPoint)
+        {
+            if ($this->oValidator->isValid($_sKey, $_sPoint))
+            {
+                $_oMetric = $this->createMetric($_sKey, $_sPoint);
+                if ($_oMetric)
+                {
+                    $_aMetrics[] = $_oMetric;
+                }
+            }
+        }
+        return $_aMetrics;
     }
 }
