@@ -57,8 +57,12 @@ class StatsReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $this->oReader->read('bla'));
     }
 
-    public function testInvalidValueReturnsNoMetrics()
+    public function testInvalidPointsReturnsNoMetrics()
     {
         $this->assertEquals([], $this->oReader->read(['foo' => '123']));
+        $this->assertEquals([], $this->oReader->read(['foo' => 'c']));
+        $this->assertEquals([], $this->oReader->read(['foo' => null]));
+
+
     }
 }
