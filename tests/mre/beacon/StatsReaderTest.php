@@ -37,7 +37,7 @@ class StatsReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('-1.9', $_aMetrics[1]->getValue());
         $this->assertEquals('c', $_aMetrics[1]->getType());
 
-        $this->assertEquals('foo', $_aMetrics[2]->getKey());
+        $this->assertEquals('baz', $_aMetrics[2]->getKey());
         $this->assertEquals('1.33', $_aMetrics[2]->getValue());
         $this->assertEquals('g', $_aMetrics[2]->getType());
     }
@@ -52,8 +52,13 @@ class StatsReaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $this->oReader->read(null));
     }
 
-    public function testInvalidInputReturnsNoMetrics()
+    public function testInvalidTypeInputReturnsNoMetrics()
     {
         $this->assertEquals([], $this->oReader->read('bla'));
+    }
+
+    public function testInvalidValueReturnsNoMetrics()
+    {
+        $this->assertEquals([], $this->oReader->read(['foo' => '123']));
     }
 }
