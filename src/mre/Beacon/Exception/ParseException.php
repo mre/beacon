@@ -5,7 +5,6 @@ namespace mre\Beacon\Exception;
 
 class ParseException extends \ErrorException
 {
-
     public function __construct(array $aError)
     {
         $_sMessage   = $aError['message'];
@@ -18,3 +17,4 @@ class ParseException extends \ErrorException
         parent::__construct($_sMessage, $_iCode, $_iSeverity, $_sFilename, $_iLineNo, $_oException);
     }
 }
+
