@@ -37,7 +37,7 @@ class Beacon
     /**
      * @param array $aConfig New config
      */
-    public function setConfig($aConfig)
+    public function setConfig(array $aConfig)
     {
         $this->aConfig = $aConfig;
     }

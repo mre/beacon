@@ -26,4 +26,11 @@ class BeaconTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->oBeacon->getConfig(), $this->aConfig);
     }
+
+    public function testConfigSetGet()
+    {
+        $_aConfig = ['foo' => 'bar'];
+        $this->oBeacon->setConfig($_aConfig);
+        $this->assertEquals($_aConfig, $this->oBeacon->getConfig());
+    }
 }
