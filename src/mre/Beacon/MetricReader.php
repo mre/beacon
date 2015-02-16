@@ -12,9 +12,9 @@ class MetricReader
 {
     private $oValidator;
 
-    public function __construct()
+    public function __construct(Validator $oValidator)
     {
-        $this->oValidator = new Validator();
+        $this->oValidator = $oValidator;
     }
 
     /**
