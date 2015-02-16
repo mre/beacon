@@ -2,7 +2,6 @@
 
 namespace mre\Beacon\Exception;
 
-
 class ParseException extends \ErrorException
 {
     public function __construct(array $aError)
