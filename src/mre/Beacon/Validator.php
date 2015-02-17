@@ -10,6 +10,13 @@ class Validator
     const REGEX_TYPE = '([a-z]+)';
 
     /**
+     * Create a new validator instance.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
      * Validate a statsd key-value pair
      *
      * @param string $sKey Metric key
