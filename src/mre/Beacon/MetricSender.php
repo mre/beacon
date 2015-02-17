@@ -2,13 +2,14 @@
 
 namespace mre\Beacon;
 
-
 class MetricSender
 {
-    /* @var \Domnikl\Statsd\Client $oStatsdClient */
     private $oStatsdClient;
 
-    public function __construct($oStatsdClient)
+    /**
+     * @param \Domnikl\Statsd\Client $oStatsdClient
+     */
+    public function __construct(\Domnikl\Statsd\Client $oStatsdClient)
     {
         $this->oStatsdClient = $oStatsdClient;
     }
