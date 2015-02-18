@@ -2,12 +2,8 @@
 
 namespace mre\Beacon;
 
-use Domnikl\Statsd\Connection\UdpSocket;
-use Domnikl\Statsd\Client as Statsd;
-
 class Beacon
 {
-    private $aConfig;
     private $oReader;
     private $oSender;
 
@@ -16,53 +12,21 @@ class Beacon
      * from a client and sending them with statsd.
      *
      * @param array $aConfig Config settings
+     * @param MetricReader $oReader
+     * @param MetricSender $oSender
      */
-    public function __construct(array $aConfig)
+    public function __construct(MetricReader $oReader, MetricSender $oSender)
     {
-        $this->aConfig = $aConfig;
-        $this->oReader = new MetricReader();
-
-        $_oStatsdClient = $this->initStatsd();
-        $this->oSender = new MetricSender($_oStatsdClient);
-    }
-
-    /**
-     * @return array Current config
-     */
-    public function getConfig()
-    {
-        return $this->aConfig;
-    }
-
-    /**
-     * @param array $aConfig New config
-     */
-    public function setConfig(array $aConfig)
-    {
-        $this->aConfig = $aConfig;
-    }
-
-    /**
-     * Initialize statsd instance
-     */
-    private function initStatsd()
-    {
-        $_oConnection = new UdpSocket(
-            $this->aConfig['statsd']['host'],
-            $this->aConfig['statsd']['port'],
-            $this->aConfig['statsd']['timeout'],
-            false // no persistent connection
-        );
-        $_sNamespace = $this->aConfig['statsd']['namespace'];
-        return new Statsd($_oConnection, $_sNamespace);
+        $this->oReader = $oReader;
+        $this->oSender = $oSender;
     }
 
     /**
      * Get and send metrics from client
      */
-    public function run()
+    public function run($aRawData)
     {
-        $_aMetrics = $this->oReader->read(filter_input_array(INPUT_GET));
+        $_aMetrics = $this->oReader->read($aRawData);
         $this->oSender->send($_aMetrics);
     }
 }

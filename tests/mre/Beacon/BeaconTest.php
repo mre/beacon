@@ -2,35 +2,38 @@
 
 namespace mre\Beacon;
 
+use Prophecy\Argument;
+use Prophecy\Prophet;
+
 class BeaconTest extends \PHPUnit_Framework_TestCase
 {
     /* @var $oBeacon Beacon */
     private $oBeacon;
-    private $aConfig;
+    private $oMetricReader;
+    private $oMetricSender;
 
     protected function setUp()
     {
-        $this->aConfig = [
-            'statsd' => [
-                'namespace' => 'rum',
-                'host' => '127.0.0.1',
-                'port' => 8125,
-                'timeout' => 2 // Connection timeout in seconds
-            ]
+        $oProphet = new Prophet();
+        $this->oMetricReader = new MetricReader(new Validator());
+        $this->oMetricSender = $oProphet->prophesize('mre\Beacon\MetricSender');
+
+        $this->oBeacon = new Beacon($this->oMetricReader, $this->oMetricSender->reveal());
+    }
+
+    public function testSendInput()
+    {
+        $_aValidKeys = ['foo' => '123c', 'bar' => '33ms', 'baz.boo' => '10s'];
+        $_aInvalidKeys = ['.' => '100c', 'bla' => '', 'bean' => 12];
+        $_aRawData = array_merge($_aValidKeys, $_aInvalidKeys);
+
+        $this->oBeacon->run($_aRawData);
+
+        $_aValidMetrics = [
+            new Metric('foo', '123', 'c'),
+            new Metric('bar', '33', 'ms'),
+            new Metric('baz.boo', '10', 's'),
         ];
-
-        $this->oBeacon = new Beacon($this->aConfig);
-    }
-
-    public function testCorrectConfigUsed()
-    {
-        $this->assertEquals($this->oBeacon->getConfig(), $this->aConfig);
-    }
-
-    public function testConfigSetGet()
-    {
-        $_aConfig = ['foo' => 'bar'];
-        $this->oBeacon->setConfig($_aConfig);
-        $this->assertEquals($_aConfig, $this->oBeacon->getConfig());
+        $this->oMetricSender->send($_aValidMetrics)->shouldHaveBeenCalled();
     }
 }
