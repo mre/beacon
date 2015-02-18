@@ -2,7 +2,6 @@
 
 namespace mre\Beacon;
 
-use Prophecy\Doubler\DoubleInterface;
 use Prophecy\Prophet;
 
 class MetricSenderTest extends \PHPUnit_Framework_TestCase
