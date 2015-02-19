@@ -27,7 +27,7 @@ class BeaconTest extends \PHPUnit_Framework_TestCase
         $_aInvalidKeys = ['.' => '100c', 'bla' => '', 'bean' => 12];
         $_aRawData = array_merge($_aValidKeys, $_aInvalidKeys);
 
-        $this->oBeacon->run($_aRawData);
+        $this->oBeacon->receive($_aRawData);
 
         $_aValidMetrics = [
             new Metric('foo', '123', 'c'),
