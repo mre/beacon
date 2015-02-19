@@ -11,7 +11,7 @@ class MetricReaderTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->oReader = new MetricReader();
+        $this->oReader = new MetricReader(new Validator());
     }
 
     public function testReaderReturnsAllCorrectMetrics()
