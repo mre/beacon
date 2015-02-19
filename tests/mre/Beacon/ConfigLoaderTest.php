@@ -32,11 +32,11 @@ class ConfigLoaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \mre\Beacon\Exception\FileNotFoundException
-     * @expectedExceptionMessage Configuration file: [ladadeedee] cannot be found
+     * @expectedExceptionMessage Configuration file: [ladadee] cannot be found
      */
     public function testInvalidPath()
     {
-        ConfigLoader::load('ladadeedee');
+        ConfigLoader::load('ladadee');
     }
 
     public function testLoadPhpArray()
