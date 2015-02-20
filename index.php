@@ -10,5 +10,23 @@ header("Content-Length: 0");
 header('Connection: close');
 flush();
 
-// Only after that process the received data
-require('bootstrap.php');
+if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || !strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')
+{
+    // Stop if not ajax request
+    // to prevent unwanted calls
+    return;
+}
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use mre\Beacon\Bootstrap;
+
+$_oRouter = new Respect\Rest\Router;
+
+$_oRouter->get('/**', function ($url)
+{
+    $_sAppNamespace = implode('/', $url);
+    Bootstrap::run($_sAppNamespace);
+});
+
+
