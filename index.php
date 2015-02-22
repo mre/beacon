@@ -2,6 +2,9 @@
 
 // Do not block the client just for metrics
 // Immediately send response header
+use mre\Beacon\Bootstrap;
+use mre\Beacon\ConfigLoader;
+
 header('HTTP/1.0 200 OK');
 header('Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate');
 header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
@@ -17,16 +20,13 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || !strtolower($_SERVER['HTTP_X_RE
     return;
 }
 
-require_once __DIR__ . '/vendor/autoload.php';
-
-use mre\Beacon\Bootstrap;
-
-$_oRouter = new Respect\Rest\Router;
-
-$_oRouter->get('/**', function ($url)
+if ($_SERVER['REQUEST_METHOD'] !== 'GET')
 {
-    $_sAppNamespace = implode('/', $url);
-    Bootstrap::run($_sAppNamespace);
-});
+    // Only accept GET requests
+    return;
+}
 
+require __DIR__ . '/vendor/autoload.php';
 
+$aConfig = ConfigLoader::load(__DIR__ . '/config.php');
+Bootstrap::run($aConfig);
