@@ -2,9 +2,6 @@
 
 // Do not block the client just for metrics
 // Immediately send response header
-use mre\Beacon\Bootstrap;
-use mre\Beacon\ConfigLoader;
-
 header('HTTP/1.0 200 OK');
 header('Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate');
 header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
@@ -28,5 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET')
 
 require __DIR__ . '/vendor/autoload.php';
 
+use mre\Beacon\Bootstrap;
+use mre\Beacon\ConfigLoader;
+
 $aConfig = ConfigLoader::load(__DIR__ . '/config.php');
-Bootstrap::run($aConfig);
+$oBootstrap = new Bootstrap($aConfig, filter_input_array(INPUT_SERVER), filter_input_array(INPUT_GET));
+$oBootstrap->run();
