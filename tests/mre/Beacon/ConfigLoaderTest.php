@@ -27,7 +27,7 @@ class ConfigLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadWithUnsupportedFormat()
     {
-        ConfigLoader::load(__DIR__ . '/fixtures/ConfigLoader/fail/error.lib');
+        ConfigLoader::load(__DIR__ . '/fixtures/ConfigLoader/fail/error.foo');
     }
 
     /**
