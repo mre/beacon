@@ -10,7 +10,7 @@ class ConfigLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadWithInvalidPhp()
     {
-        ConfigLoader::load(__DIR__ . '/mocks/fail/error.php');
+        ConfigLoader::load(__DIR__ . '/fixtures/ConfigLoader/fail/error.php');
     }
 
     /**
@@ -19,7 +19,7 @@ class ConfigLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadWithExceptionalPhp()
     {
-        ConfigLoader::load(__DIR__ . '/mocks/fail/error-exception.php');
+        ConfigLoader::load(__DIR__ . '/fixtures/ConfigLoader/fail/error-exception.php');
     }
 
     /**
@@ -27,7 +27,7 @@ class ConfigLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadWithUnsupportedFormat()
     {
-        ConfigLoader::load(__DIR__ . '/mocks/fail/error.lib');
+        ConfigLoader::load(__DIR__ . '/fixtures/ConfigLoader/fail/error.lib');
     }
 
     /**
@@ -41,14 +41,14 @@ class ConfigLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadPhpArray()
     {
-        $_aConfig = ConfigLoader::load(__DIR__ . '/mocks/pass/config.php');
+        $_aConfig = ConfigLoader::load(__DIR__ . '/fixtures/ConfigLoader/pass/config.php');
         $this->assertEquals('localhost', $_aConfig['host']);
         $this->assertEquals('80', $_aConfig['port']);
     }
 
     public function testLoadPhpCallable()
     {
-        $_aConfig = ConfigLoader::load(__DIR__ . '/mocks/pass/config-exec.php');
+        $_aConfig = ConfigLoader::load(__DIR__ . '/fixtures/ConfigLoader/pass/config-exec.php');
         $this->assertEquals('localhost', $_aConfig['host']);
         $this->assertEquals('80', $_aConfig['port']);
     }
