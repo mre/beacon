@@ -27,6 +27,16 @@ class Bootstrap
     private $sNamespace;
 
     /**
+     * @var \Auryn\Provider
+     */
+    private $oInjector;
+
+    /**
+     * @var Beacon
+     */
+    private $oBeacon;
+
+    /**
      * @param array $aConfig
      * @param array $aServerEnv
      * @param array $aMetricData
@@ -47,7 +57,7 @@ class Bootstrap
 
         $this->oInjector->define('Domnikl\Statsd\Client', [
             'connection' => 'Domnikl\Statsd\Connection\UdpSocket',
-            ':namespace' => $this->getNamespace($aServerEnv)
+            ':namespace' => $this->getNamespace()
         ]);
 
         $this->oBeacon = $this->oInjector->make('mre\Beacon\Beacon');
