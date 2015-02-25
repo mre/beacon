@@ -26,7 +26,7 @@ class MetricSenderTest extends \PHPUnit_Framework_TestCase
     {
         $_oMetric = new Metric('foo', '123', Metric::TYPE_COUNTER);
 
-        $this->oMetricSender->send([$_oMetric]);
+        $this->oMetricSender->sendAll([$_oMetric]);
 
         $this->oStatsdClientMock->count('foo', '123')->shouldHaveBeenCalled();
     }
@@ -35,7 +35,7 @@ class MetricSenderTest extends \PHPUnit_Framework_TestCase
     {
         $_oMetric = new Metric('foo', '123', Metric::TYPE_TIMING);
 
-        $this->oMetricSender->send([$_oMetric]);
+        $this->oMetricSender->sendAll([$_oMetric]);
 
         $this->oStatsdClientMock->timing('foo', '123')->shouldHaveBeenCalled();
     }
@@ -44,7 +44,7 @@ class MetricSenderTest extends \PHPUnit_Framework_TestCase
     {
         $_oMetric = new Metric('foo', '123', Metric::TYPE_SET);
 
-        $this->oMetricSender->send([$_oMetric]);
+        $this->oMetricSender->sendAll([$_oMetric]);
 
         $this->oStatsdClientMock->set('foo', '123')->shouldHaveBeenCalled();
     }
@@ -53,7 +53,7 @@ class MetricSenderTest extends \PHPUnit_Framework_TestCase
     {
         $_oMetric = new Metric('foo', '123', Metric::TYPE_GAUGE);
 
-        $this->oMetricSender->send([$_oMetric]);
+        $this->oMetricSender->sendAll([$_oMetric]);
 
         $this->oStatsdClientMock->gauge('foo', '123')->shouldHaveBeenCalled();
     }

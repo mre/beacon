@@ -27,6 +27,6 @@ class Beacon
     public function receive($aRawData)
     {
         $_aMetrics = $this->oReader->read($aRawData);
-        $this->oSender->send($_aMetrics);
+        $this->oSender->sendAll($_aMetrics);
     }
 }

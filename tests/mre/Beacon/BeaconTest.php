@@ -34,6 +34,6 @@ class BeaconTest extends \PHPUnit_Framework_TestCase
             new Metric('bar', '33', 'ms'),
             new Metric('baz.boo', '10', 's'),
         ];
-        $this->oMetricSender->send($_aValidMetrics)->shouldHaveBeenCalled();
+        $this->oMetricSender->sendAll($_aValidMetrics)->shouldHaveBeenCalled();
     }
 }
