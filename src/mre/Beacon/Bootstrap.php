@@ -2,8 +2,6 @@
 
 namespace mre\Beacon;
 
-use Auryn\Provider;
-
 class Bootstrap
 {
     /**
@@ -47,7 +45,7 @@ class Bootstrap
         $this->aServerEnv = $aServerEnv;
         $this->aMetricData = $aMetricData;
 
-        $this->oInjector = new Provider;
+        $this->oInjector = new \Auryn\Injector;
 
         $this->oInjector->define('Domnikl\Statsd\Connection\InetSocket', [
             ':host' => $aConfig['statsd']['host'],
