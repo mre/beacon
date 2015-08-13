@@ -83,7 +83,7 @@ class Validator
      */
     public function isValidValue($sValue)
     {
-        return preg_match('/^' . self::REGEX_VALUE . '$/', $sValue) == 1;
+        return is_numeric($sValue);
     }
 
     /**
