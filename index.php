@@ -29,5 +29,11 @@ use mre\Beacon\Bootstrap;
 use mre\Beacon\ConfigLoader;
 
 $aConfig = ConfigLoader::load(__DIR__ . '/config.php');
+
+if(!count($_SERVER) || !count($_GET)) {
+  // No payload or invalid request. Bail out.
+  return;
+}
+
 $oBootstrap = new Bootstrap($aConfig, filter_input_array(INPUT_SERVER), filter_input_array(INPUT_GET));
 $oBootstrap->run();
