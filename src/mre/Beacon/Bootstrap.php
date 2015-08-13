@@ -73,7 +73,7 @@ class Bootstrap
     {
         if (!$this->sNamespace)
         {
-            if (!array_key_exists('REQUEST_URI', $this->aServerEnv))
+            if (!isset($this->aServerEnv['REQUEST_URI']))
             {
                 throw new \InvalidArgumentException('Invalid HTTP request');
             }
@@ -143,7 +143,7 @@ class Bootstrap
         $_sApplicationNamespace = $this->getApplicationNamespace();
 
         // Remove virtual root path if it's set in the config
-        if (array_key_exists('virtualroot', $this->aConfig))
+        if (isset($this->aConfig['virtualroot']))
         {
             $_sPrefix = $this->aConfig['virtualroot'] . '.';
             if (substr($_sApplicationNamespace, 0, strlen($_sPrefix)) == $_sPrefix) {
