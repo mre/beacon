@@ -10,7 +10,7 @@ Works with [boomerang](https://github.com/lognormal/boomerang) and [statsc](http
 ### Usage
 
 From your application, you can send `GET` requests to the beacon endpoint like so:  
-`example.com/my/applicationname?redirect=619ms&cache=4ms&dns=0ms&connect=1ms&firstByte=715ms&items=30g`
+`http://example.com/my/applicationname?redirect=619ms&cache=4ms&dns=0ms&connect=1ms&firstByte=715ms&items=30g`
 
 This will send the following metrics via [statsd](https://github.com/etsy/statsd/) for further processing:
 
