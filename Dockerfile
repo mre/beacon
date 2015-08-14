@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
       curl git unzip
 RUN a2enmod rewrite
 
-# Install tideways profiler which is compatible with xhprof but more modern
+# Install tideways profiler which is compatible with xhprof, but more modern
 WORKDIR /usr/src/php/ext
 ADD https://github.com/tideways/php-profiler-extension/archive/v2.0.10.zip tideways.zip
 RUN unzip tideways.zip && mv php-profiler-extension-2.0.10 tideways && rm tideways.zip \
