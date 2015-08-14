@@ -22,7 +22,7 @@ class Bootstrap
     /**
      * @var string
      */
-    private $sNamespace;
+    private $sFullNamespace;
 
     /**
      * @var \Auryn\Provider
@@ -55,7 +55,7 @@ class Bootstrap
 
         $this->oInjector->define('Domnikl\Statsd\Client', [
             'connection' => 'Domnikl\Statsd\Connection\UdpSocket',
-            ':namespace' => $this->getNamespace()
+            ':namespace' => $this->getFullNamespace()
         ]);
 
         $this->oBeacon = $this->oInjector->make('mre\Beacon\Beacon');
@@ -67,27 +67,33 @@ class Bootstrap
     }
 
     /**
+     * Get the complete metric namespace that goes in front of every
+     * key that was sent to the backend
      * @return mixed
      */
-    public function getNamespace()
+    public function getFullNamespace()
     {
-        if (!$this->sNamespace)
+        if (!$this->sFullNamespace)
         {
             if (!isset($this->aServerEnv['REQUEST_URI']))
             {
                 throw new \InvalidArgumentException('Invalid HTTP request');
             }
+            $this->sFullNamespace = $this->aConfig['statsd']['namespace'];
 
-            $_sGlobalPrefix = $this->getGlobalPrefix();
+            $_sApplicationNamespace = $this->getApplicationNamespace();
 
-            $this->sNamespace = $this->aConfig['statsd']['namespace'] . '.' . $_sGlobalPrefix;
+            if ($_sApplicationNamespace)
+            {
+                $this->sFullNamespace .= '.' . $_sApplicationNamespace;
+            }
         }
-        return $this->sNamespace;
+        return $this->sFullNamespace;
     }
 
-    public function setNamespace($sNamespace)
+    public function setFullNamespace($sFullNamespace)
     {
-        $this->sNamespace = $sNamespace;
+        $this->sFullNamespace = $sFullNamespace;
     }
 
     /**
@@ -138,28 +144,34 @@ class Bootstrap
         $this->aMetricData = $aMetricData;
     }
 
-    private function getGlobalPrefix()
+    /**
+     * Retrieve the application namespace that comes before the normal metric key
+     * e.g. if your beacon backend is installed at
+     * http://example.com/myvirtualroot/ (with myvirtualroot being the virtualroot dir)
+     * and your applications sends metrics to
+     * http://example.com/myvirtualroot/my/application
+     * your application namespace would be my.application
+     */
+    public function getApplicationNamespace()
     {
-        $_sApplicationNamespace = $this->getApplicationNamespace();
+        $_sDirectory = $this->getDirectoryFromUrl();
+        $_sApplicationNamespace = str_replace('/', '.', $_sDirectory);
 
         // Remove virtual root path if it's set in the config
         if (isset($this->aConfig['virtualroot']))
         {
-            $_sPrefix = $this->aConfig['virtualroot'] . '.';
+            $_sPrefix = $this->aConfig['virtualroot'];
             if (substr($_sApplicationNamespace, 0, strlen($_sPrefix)) == $_sPrefix) {
                 $_sApplicationNamespace = substr($_sApplicationNamespace, strlen($_sPrefix));
             }
         }
-        return $_sApplicationNamespace;
+        return trim($_sApplicationNamespace, '.');
     }
 
-    private function getApplicationNamespace()
+    private function getDirectoryFromUrl()
     {
         $_sUri = trim($this->aServerEnv['REQUEST_URI'], '/');
         $_aParts = explode("?", $_sUri, 2);
-
-        $_sApplicationNamespace = str_replace('/', '.', $_aParts[0]);
-
-        return trim($_sApplicationNamespace, '.');
+        return $_aParts[0];
     }
 }

@@ -21,19 +21,33 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
         new Bootstrap($this->aConfig, [], ['foo' => '123c']);
     }
 
-    public function testCorrectNamespace()
+    /**
+     * @dataProvider namespaceDataProvider
+     */
+    public function testCorrectNamespace($sUrlPath, $sExpectedApplicationNamespace, $sExpectedFullNamespace)
     {
-        $_oBootstrap = new Bootstrap($this->aConfig, ['REQUEST_URI' => '/beacon/my/app'], ['foo' => '123c']);
-        $_sExpectedNamespace = $this->aConfig['statsd']['namespace'] . '.my.app';
-        $this->assertEquals($_sExpectedNamespace, $_oBootstrap->getNamespace());
+        $_oBootstrap = new Bootstrap($this->aConfig, ['REQUEST_URI' => $sUrlPath], ['foo' => '123c']);
+        $this->assertEquals($sExpectedApplicationNamespace, $_oBootstrap->getApplicationNamespace());
+        $this->assertEquals($sExpectedFullNamespace, $_oBootstrap->getFullNamespace());
     }
 
-    public function testGetSetNamespace()
+    public function namespaceDataProvider()
+    {
+        return array(
+            array('/beacon', '', 'rum'),
+            array('/beacon/', '', 'rum'),
+            array('/beac', 'beac', 'rum.beac'),
+            array('/beacon/beacon', 'beacon', 'rum.beacon'),
+            array('/beacon/my/app', 'my.app', 'rum.my.app')
+        );
+    }
+
+    public function testGetSetFullNamespace()
     {
         $_oBootstrap = new Bootstrap($this->aConfig, ['REQUEST_URI' => '/beacon/my/app'], ['foo' => '123c']);
         $_sTestNamespace = 'my.namespace';
-        $_oBootstrap->setNamespace($_sTestNamespace);
-        $this->assertEquals($_sTestNamespace, $_oBootstrap->getNamespace());
+        $_oBootstrap->setFullNamespace($_sTestNamespace);
+        $this->assertEquals($_sTestNamespace, $_oBootstrap->getFullNamespace());
     }
 
     public function testGetSetConfig()
