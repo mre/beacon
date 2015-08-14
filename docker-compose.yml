@@ -1,0 +1,21 @@
+influxdb:
+  image: tutum/influxdb:latest
+  ports:
+    - 8083:8083
+    - 8086:8086
+  environment:
+    - PRE_CREATE_DB="metrics"
+  volumes:
+    - setup/influxdb-config.toml:/config/config.toml
+collectd:
+  image: mre0/collectd
+  volumes:
+    - setup/collectd.conf:/etc/collectd.conf
+  links:
+    - influxdb
+beacon:
+  image: mre/beacon:latest
+  ports:
+    - 80:80
+  links:
+    - collectd
