@@ -4,29 +4,44 @@
 [![Build Status](https://scrutinizer-ci.com/g/mre/beacon/badges/build.png?b=master)](https://scrutinizer-ci.com/g/mre/beacon/build-status/master)
 [![Code Coverage](https://scrutinizer-ci.com/g/mre/beacon/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/mre/beacon/?branch=master)
 
-A dedicated endpoint for real user monitoring.  
+A dedicated endpoint for real user monitoring. A beacon backend for your application.  
 Works with [boomerang](https://github.com/lognormal/boomerang) and [statsc](https://github.com/godmodelabs/statsc).  
 
 ### Usage
 
-After the setup you can send `GET` requests to the beacon endpoint like so:  
-`example.com/my/applicationname?requests=1c&searchtime=320ms&items=30g`
+From your application, you can send `GET` requests to the beacon endpoint like so:  
+`example.com/my/applicationname?redirect=619ms&cache=4ms&dns=0ms&connect=1ms&firstByte=715ms&items=30g
 
 This will send the following metrics via [statsd](https://github.com/etsy/statsd/) for further processing:
 
 ```
-my.applicationname.requests:1|c
-my.applicationname.searchtime:320|ms
+my.applicationname.redirect:619|ms
+my.applicationname.cache:4|ms
+my.applicationname.dns:0|ms
+my.applicationname.connect:1|ms
+my.applicationname.firstByte:715|ms
 my.applicationname.items:30|g
 ```
 
-The process chain is as follows:  
+Beacon is used with a time-series database like this:
 
 ```
 client --> beacon --> statsd --> graphite/influxdb/opentsdb/...
 ```
 
-### Installation
+We've included a `docker-compose.yml` file to try this out.
+
+
+### Quick start with Docker
+
+    docker build -t mre/beacon .
+    docker run -it --rm -p 80:80 mre/beacon
+
+
+### Manual Installation
+
+Running this with Docker as shown above is the preferred method, but if you  
+have to install it locally, here's how to do it:
 
 1. Run `composer install`
 2. Start a server with this directory as a document root.  
@@ -36,7 +51,6 @@ client --> beacon --> statsd --> graphite/influxdb/opentsdb/...
    file into that folder with the following entry:
    `RewriteRule ^(.*)$ index.php?handler=$1 [L,QSA]`
 
-Now you have a restful beacon backend for your application.
 
 ### Valid keys:
 
