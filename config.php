@@ -2,9 +2,9 @@
 return [
     'statsd' => [
         'namespace' => 'rum',
-        'host' => '127.0.0.1',
+        'host' => 'collectd',
         'port' => 8125,
-        'timeout' => 2 // Connection timeout in seconds
+        'timeout' => 1.0 // Connection timeout in seconds
     ],
     // If you installed beacon in a subdirectory of your server,
     // specify it here. Otherwise it would be part of your metric name
