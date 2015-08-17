@@ -14,7 +14,7 @@ collectd:
   links:
     - influxdb
 beacon:
-  image: mre/beacon:latest
+  build: .
   ports:
     - 80:80
   links:
