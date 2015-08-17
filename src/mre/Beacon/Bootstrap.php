@@ -47,7 +47,7 @@ class Bootstrap
 
         $this->oInjector = new \Auryn\Injector;
 
-        $this->oInjector->define('Domnikl\Statsd\Connection\InetSocket', [
+        $this->oInjector->define('Domnikl\Statsd\Connection\UdpSocket', [
             ':host' => $aConfig['statsd']['host'],
             ':port' => $aConfig['statsd']['port'],
             ':timeout' => $aConfig['statsd']['timeout']
